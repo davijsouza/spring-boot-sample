@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xuguruogu.sample.springboot.dal.dao.ProxyDao">
+	<resultMap type="ProxyDO" id="ProxyResult">
+		<id property="id" column="ID" jdbcType="INTEGER" />
+		<result property="createdTime" column="GMT_CREATE" jdbcType="TIMESTAMP" />
+		<result property="modifiedTime" column="GMT_MODIFIED" jdbcType="TIMESTAMP" />
+		<result property="ip" column="IP" jdbcType="VARCHAR" />
+		<result property="port" column="PORT" jdbcType="INTEGER" />
+		<result property="path" column="PATH" jdbcType="VARCHAR" />
+		<result property="clusterId" column="CLUSTER_ID" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<insert id="insert" parameterType="ProxyDO">
+		insert into proxy (
+			GMT_CREATE,
+			IP,
+			PORT,
+			PATH,
+			CLUSTER_ID)
+			values (
+			#{createdTime},
+			#{ip},
+			#{port},
+			#{path},
+			#{clusterId}
+		)
+	</insert>
+
+	<select id="selectById" parameterType="long" resultMap="ProxyResult">
+		select * from proxy
+		where id=#{id}
+	</select>
+
+	<select id="selectListByClusterId" parameterType="long"
+		resultMap="ProxyResult">
+		select * from proxy
+		where CLUSTER_ID=#{clusterid}
+	</select>
+
+</mapper>

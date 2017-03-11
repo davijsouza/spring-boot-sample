@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xuguruogu.sample.springboot.dal.dao.ClusterDao">
+	<resultMap type="ClusterDO" id="ClusterResult">
+		<id property="id" column="ID" jdbcType="INTEGER" />
+		<result property="createdTime" column="GMT_CREATE" jdbcType="TIMESTAMP" />
+		<result property="modifiedTime" column="GMT_MODIFIED" jdbcType="TIMESTAMP" />
+		<result property="clusterName" column="CLUSTER_NAME" jdbcType="VARCHAR" />
+		<result property="comment" column="COMMENT" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<insert id="insert" parameterType="ClusterDO">
+		insert into cluster (
+		GMT_CREATE,
+		CLUSTER_NAME,
+		COMMENT)
+		values (
+		#{createdTime},
+		#{clusterName},
+		#{comment}
+		)
+	</insert>
+
+	<select id="selectById" parameterType="long" resultMap="ClusterResult">
+		select *
+		from cluster
+		where id=#{id}
+	</select>
+
+	<select id="selectByClusterName" parameterType="java.lang.String"
+		resultMap="ClusterResult">
+		select * from cluster
+		where CLUSTER_NAME=#{clustername}
+	</select>
+
+
+</mapper>
